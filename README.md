@@ -8,8 +8,11 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688.svg)](https://fastapi.tiangolo.com)
 [![Contributors Welcome](https://img.shields.io/badge/contributors-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-brightgreen)](https://synapse-av8e.onrender.com/)
 
 *Revolutionizing no-code development with AI-powered project planning and code generation*
+
+**🌐 [Visit Live Demo](https://synapse-av8e.onrender.com/)**
 
 [🌟 Features](#features) • [🚀 Quick Start](#quick-start) • [📖 Documentation](#documentation) • [🤝 Contributing](#contributing) • [📄 License](#license)
 
@@ -256,5 +259,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **⭐ Star this repository if you find it helpful!**
 
 Made with ❤️ by [Sumit Kumar Das](https://github.com/skdas20)
+
+</div>
 
 </div>
