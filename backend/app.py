@@ -33,8 +33,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
+# Mount static files and frontend assets
 static_dir = Path(__file__).parent / "templates"
+frontend_dir = Path(__file__).parent.parent  # Go up one level to project root
+
+# Mount the templates directory for images
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # Initialize services with proper error handling
@@ -437,10 +440,21 @@ async def generate_project(tasks: List[str], project_type: str):
         app.logger.error(f"Error in generate_project route: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
-# Mount static files (HTML, CSS, JS) - Should be after API routes
-# Serve files from the parent directory relative to this script's location
-static_files_path = Path(__file__).parent.parent
-app.mount("/", StaticFiles(directory=static_files_path, html=True), name="static")
+# Serve the main frontend HTML page
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring"""
+    return {
+        "status": "healthy",
+        "mongodb": services['mongodb'] is not None,
+        "task_planner": services['task_planner'] is not None,
+        "dev_bot": services['dev_bot'] is not None,
+        "github": services['github'] is not None
+    }
+
+# Mount frontend files (CSS, JS, HTML) at the end to avoid conflicts with API routes
+app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
 
 if __name__ == "__main__":
     import uvicorn

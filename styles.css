@@ -373,17 +373,19 @@ body {
 }
 
 .loading-indicator::after {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--accent-blue);
-    animation: spin 1s ease-in-out infinite;
+    content: 'Processing your request...';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em;
+    color: var(--text-color);
+    animation: loadingPulse 2s infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+@keyframes loadingPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
 }
 
 .action-buttons {
@@ -406,8 +408,14 @@ body {
 }
 
 .action-buttons button:disabled {
-    opacity: 0.6;
+    background: rgba(10, 76, 149, 0.5);
     cursor: not-allowed;
+    transform: none;
+}
+
+.action-buttons button:disabled:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 footer {
@@ -646,4 +654,272 @@ input:checked + .slider:before {
 .save-settings-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(10, 76, 149, 0.4);
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 60px 10px 10px 10px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        height: auto;
+    }
+    
+    .sidebar.collapsed {
+        height: 60px;
+        overflow: hidden;
+    }
+    
+    .main-content {
+        width: 100%;
+    }
+    
+    .logo-container {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .input-section {
+        width: 95%;
+    }
+    
+    .output-section {
+        width: 95%;
+    }
+    
+    .synapse-text {
+        font-size: 1.2em;
+    }
+    
+    .nav-btn {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    
+    .nav-btn i {
+        font-size: 1em;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 15px 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .synapse-text {
+        position: relative;
+        left: 0;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .logo-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .requirement-input {
+        height: 120px;
+        font-size: 14px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+/* Improved loading animations */
+@keyframes loadingPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+.loading-indicator::after {
+    content: 'Processing your request...';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em;
+    color: var(--text-color);
+    animation: loadingPulse 2s infinite;
+}
+
+/* Enhanced button styles */
+.submit-btn:disabled, .action-buttons button:disabled {
+    background: rgba(10, 76, 149, 0.5);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-btn:disabled:hover, .action-buttons button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Better scrollbar for all elements */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-blue) rgba(255, 255, 255, 0.1);
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--accent-blue);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #4facfe;
+}
+
+/* Improved focus states for accessibility */
+button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid #4facfe;
+    outline-offset: 2px;
+}
+
+/* Enhanced error states */
+.error-message {
+    background: rgba(217, 63, 11, 0.1);
+    border: 1px solid #d93f0b;
+    color: #ff6b6b;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.success-message {
+    background: rgba(14, 138, 22, 0.1);
+    border: 1px solid #0e8a16;
+    color: #40c057;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Loading skeleton for better UX */
+.skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Enhanced task styling */
+.task.completed {
+    opacity: 0.7;
+    text-decoration: line-through;
+    border-left-color: #40c057;
+}
+
+.task.in-progress {
+    border-left-color: #fab005;
+}
+
+.task.blocked {
+    border-left-color: #fa5252;
+}
+
+/* Improved modal animations */
+@keyframes modalSlideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-50px) scale(0.9); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+
+.modal.show .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Better visual hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+/* Enhanced code styling for generated content */
+.code-block {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.code-block::-webkit-scrollbar {
+    height: 6px;
+}
+
+/* Print styles */
+@media print {
+    .stars, .warp-stars, .water-effect {
+        display: none;
+    }
+    
+    .container {
+        background: white;
+        color: black;
+    }
+    
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        width: 100%;
+    }
 }
