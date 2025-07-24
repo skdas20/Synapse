@@ -778,8 +778,7 @@ input:checked + .slider:before {
     margin-right: 0;
     margin-bottom: 20px;
     height: auto;
-    display: flex !important
-;
+    display: flex;
     flex-direction: column;
     position: relative;
     padding: 4px 6px;
