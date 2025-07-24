@@ -794,7 +794,7 @@ input:checked + .slider:before {
   }
 
   .sidebar-toggle {
-    display: block !important;
+    display: block;
     position: absolute;
     top: 26px;
     /* right: 0px; */
