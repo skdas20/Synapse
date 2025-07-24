@@ -797,7 +797,7 @@ input:checked + .slider:before {
     display: block;
     position: absolute;
     top: 26px;
-    /* right: 0px; */
+    
     background-color: var(--accent-blue);
     border: none;
     color: white;
