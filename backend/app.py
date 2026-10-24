@@ -453,8 +453,23 @@ async def health_check():
         "github": services['github'] is not None
     }
 
-# Mount frontend files (CSS, JS, HTML) at the end to avoid conflicts with API routes
-app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+# Serve only the frontend files. Mounting the project root would also expose
+# .env, the backend source and anything else in the repository.
+FRONTEND_FILES = {
+    "index.html": "text/html",
+    "styles.css": "text/css",
+    "script.js": "application/javascript",
+}
+
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse(frontend_dir / "index.html", media_type="text/html")
+
+@app.get("/{filename}", include_in_schema=False)
+async def serve_frontend_file(filename: str):
+    if filename not in FRONTEND_FILES:
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(frontend_dir / filename, media_type=FRONTEND_FILES[filename])
 
 if __name__ == "__main__":
     import uvicorn
