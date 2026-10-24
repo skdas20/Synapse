@@ -1,265 +1,125 @@
-# 🧠 Synapse - AI-Powered Development Assistant
-
 <div align="center">
 
-![Synapse Logo](./templates/a.png)
+<img src="./backend/templates/a.png" alt="Synapse logo" width="120" />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688.svg)](https://fastapi.tiangolo.com)
-[![Contributors Welcome](https://img.shields.io/badge/contributors-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-brightgreen)](https://synapse-av8e.onrender.com/)
+# Synapse
 
-*Revolutionizing no-code development with AI-powered project planning and code generation*
+**Describe a project in plain English. Get a task plan, a tech-stack recommendation and a generated codebase, pushed to GitHub.**
 
-**🌐 [Visit Live Demo](https://synapse-av8e.onrender.com/)**
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev)
+[![Contributors welcome](https://img.shields.io/badge/contributors-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://synapse-av8e.onrender.com/)
 
-[🌟 Features](#features) • [🚀 Quick Start](#quick-start) • [📖 Documentation](#documentation) • [🤝 Contributing](#contributing) • [📄 License](#license)
+[Live demo](https://synapse-av8e.onrender.com/) · [Quick start](#quick-start) · [How it works](#how-it-works) · [API](#api) · [Roadmap](#roadmap) · [Contributing](#contributing)
 
 </div>
-
-## 📝 About
-
-**Synapse** is an ambitious AI-powered development assistant created by **Sumit Kumar Das**, designed to bridge the gap between ideas and implementation. This innovative platform helps developers and non-developers alike by:
-
-- 🎯 Breaking down complex project requirements into actionable tasks
-- 🔧 Generating complete codebases based on requirements
-- 🐙 Seamlessly integrating with GitHub for version control
-- 📊 Providing intelligent project analysis and tech stack recommendations
-
-## ✨ Features
-
-### 🤖 AI-Powered Planning
-- **Smart Requirement Analysis**: Convert natural language requirements into structured development tasks
-- **Technology Stack Detection**: Automatically identifies the best tech stack for your project
-- **Realistic Goal Setting**: Creates achievable milestones and development phases
-
-### 💻 Code Generation
-- **Multi-Language Support**: Generates code in various programming languages
-- **Complete Project Structure**: Creates entire project scaffolds with proper file organization
-- **Best Practices**: Follows industry standards and coding conventions
-
-### 🔗 GitHub Integration
-- **Automatic Repository Creation**: Creates and initializes GitHub repositories
-- **Code Pushing**: Directly pushes generated code to your GitHub account
-- **Issue Management**: Tracks development progress through GitHub issues
-
-### 🎨 Modern UI/UX
-- **Space-Themed Interface**: Beautiful, responsive design with animations
-- **Dark Mode**: Eye-friendly interface for long coding sessions
-- **Real-time Updates**: Live progress tracking and status updates
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.8 or higher
-- Node.js (for frontend dependencies)
-- MongoDB (local or cloud instance)
-- Google Gemini API key
-- GitHub Personal Access Token (optional, for GitHub features)
-
-### 🛠️ Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/skdas20/Synapse.git
-   cd Synapse
-   ```
-
-2. **Set up the backend**
-   ```bash
-   cd backend
-   pip install -r ../requirements.txt
-   ```
-
-3. **Configure environment variables**
-   Create a `.env` file in the project root:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   MONGODB_URI=mongodb://localhost:27017/synapse
-   GITHUB_TOKEN=your_github_token_here  # Optional
-   ```
-
-4. **Start the backend server**
-   ```bash
-   cd backend
-   uvicorn app:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-5. **Access the application**
-   Open your browser and navigate to:
-   ```
-   http://localhost:8000
-   ```
-
-### 🌐 Local Development
-
-For development with live reload:
-
-```bash
-# Terminal 1 - Backend
-cd backend
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
-
-# Access at http://localhost:8000
-```
-
-### 🔑 API Keys Setup
-
-#### Google Gemini API Key
-1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Create a new API key
-3. Add it to your `.env` file as `GEMINI_API_KEY`
-
-#### GitHub Token (Optional)
-1. Go to GitHub Settings → Developer settings → Personal access tokens
-2. Generate a new token with `repo` permissions
-3. Add it to your `.env` file as `GITHUB_TOKEN`
-
-## 📖 API Documentation
-
-Once the server is running, access the interactive API documentation at:
-- **Swagger UI**: `http://localhost:8000/docs`
-- **ReDoc**: `http://localhost:8000/redoc`
-
-### Key Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/process-requirement` | POST | Analyze requirements and generate tasks |
-| `/api/generate-code` | POST | Generate complete codebase |
-| `/api/push-to-github` | POST | Push code to GitHub repository |
-| `/api/update-github-token` | POST | Update GitHub authentication |
-
-## 🏗️ Project Structure
-
-```
-Synapse/
-├── backend/
-│   ├── app.py                 # FastAPI main application
-│   ├── agents/
-│   │   ├── task_planner.py    # AI task planning agent
-│   │   ├── dev_bot.py         # Code generation agent
-│   │   └── github_agent.py    # GitHub integration agent
-│   └── templates/
-│       └── a.png              # Logo and assets
-├── frontend/
-│   ├── index.html             # Main HTML file
-│   ├── styles.css             # Styling and animations
-│   └── script.js              # Frontend JavaScript
-├── generated_project/         # Output directory for generated code
-├── requirements.txt           # Python dependencies
-├── package.json              # Node.js dependencies
-├── Procfile                  # Deployment configuration
-└── README.md                 # This file
-```
-
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-# Backend tests
-cd backend
-python -m pytest tests/
-
-# Frontend tests (if you add them)
-npm test
-```
-
-## 🚀 Deployment
-
-### Deploy on Render
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. **Create Render Service**
-   - Connect your GitHub repository
-   - Set build command: `pip install -r requirements.txt`
-   - Set start command: `uvicorn backend.app:app --host 0.0.0.0 --port $PORT`
-
-3. **Configure Environment Variables**
-   Add your API keys in Render's dashboard:
-   - `GEMINI_API_KEY`
-   - `MONGODB_URI`
-   - `GITHUB_TOKEN`
-
-### Deploy on Other Platforms
-
-- **Heroku**: Use the included `Procfile`
-- **Vercel**: Configure for FastAPI deployment
-- **Railway**: Direct GitHub integration
-
-## 🤝 Contributing
-
-We welcome contributions from developers of all skill levels! Here's how you can help:
-
-### 🎯 Areas for Contribution
-
-- **🐛 Bug Fixes**: Help identify and fix issues
-- **✨ New Features**: Add innovative functionalities
-- **📱 UI/UX Improvements**: Enhance user experience
-- **📚 Documentation**: Improve guides and examples
-- **🧪 Testing**: Add comprehensive test coverage
-- **🔧 Performance**: Optimize code and reduce loading times
-
-### 🚀 Getting Started
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit your changes**: `git commit -m 'Add amazing feature'`
-4. **Push to the branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### 📋 Current Issues & Roadmap
-
-Check our [Issues](https://github.com/skdas20/Synapse/issues) for:
-- 🟢 **Good First Issues**: Perfect for beginners
-- 🟡 **Medium Priority**: For intermediate contributors
-- 🔴 **High Priority**: Advanced features and critical fixes
-
-## 🌟 Roadmap
-
-- [ ] **Enhanced Code Editor**: In-browser code editing interface
-- [ ] **Multiple AI Models**: Support for different AI providers
-- [ ] **Real-time Collaboration**: Multi-user project development
-- [ ] **Mobile App**: Native mobile application
-- [ ] **Plugin System**: Extensible architecture for custom tools
-- [ ] **Advanced Analytics**: Project metrics and insights
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Google Gemini AI** for powerful language model capabilities
-- **FastAPI** for the excellent Python web framework
-- **MongoDB** for flexible data storage
-- **GitHub API** for seamless integration
-- **Open Source Community** for inspiration and support
-
-## 📧 Contact
-
-**Sumit Kumar Das** - Creator and Maintainer
-
-- GitHub: [@skdas20](https://github.com/skdas20)
-- Project Link: [https://github.com/skdas20/Synapse](https://github.com/skdas20/Synapse)
 
 ---
 
-<div align="center">
+## What it does
 
-**⭐ Star this repository if you find it helpful!**
+Synapse is an open-source AI development assistant built with FastAPI and Google Gemini. It chains three agents together:
 
-Made with ❤️ by [Sumit Kumar Das](https://github.com/skdas20)
+1. **Task planner:** turns a natural-language requirement ("a REST API for a library with JWT auth") into ordered development tasks, a recommended tech stack and realistic milestones.
+2. **Dev bot:** generates a complete project scaffold for those tasks and packages it as a ZIP.
+3. **GitHub agent:** creates a repository, pushes the generated files and opens one GitHub issue per task.
 
-</div>
+The browser UI is plain HTML, CSS and JavaScript, so there's no build step and it's easy to hack on.
 
-</div>
+> **Note on the live demo:** it runs on a free Render instance, so the first request after a period of inactivity can take about 30 seconds while it wakes up.
+
+## Quick start
+
+**Requirements:** Python 3.10+, a [Google Gemini API key](https://aistudio.google.com/app/apikey), and MongoDB (local or [Atlas](https://www.mongodb.com/atlas)). A GitHub token is optional and only needed for pushing.
+
+```bash
+git clone https://github.com/skdas20/Synapse.git
+cd Synapse
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+cp .env.example .env    # then fill in GEMINI_API_KEY and MONGODB_URI
+
+uvicorn app:app --app-dir backend --reload --port 8000
+```
+
+Open <http://localhost:8000>. Interactive API docs are at <http://localhost:8000/docs>.
+
+### Environment variables
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `GEMINI_API_KEY` | Yes | Task planning and code generation |
+| `MONGODB_URI` | Yes, for pushing to GitHub | Stores generated projects between steps |
+| `GITHUB_TOKEN` | No | Default token for the GitHub agent (`repo` scope). Users can also paste a token in the UI. |
+
+Never commit your `.env` file.
+
+## How it works
+
+```mermaid
+graph LR;
+    U[Your requirement] --> TP[Task planner agent];
+    TP -->|tasks, tech stack, milestones| UI[Web UI];
+    UI --> DB[Dev bot agent];
+    DB -->|generated files| M[(MongoDB)];
+    DB -->|ZIP download| UI;
+    M --> GH[GitHub agent];
+    GH -->|repo + files + one issue per task| G[GitHub];
+```
+
+| Component | File |
+| --- | --- |
+| FastAPI app and routes | `backend/app.py` |
+| Task planning (Gemini) | `backend/agents/task_planner.py` |
+| Code generation (Gemini) | `backend/agents/dev_bot.py` |
+| GitHub integration (PyGithub) | `backend/agents/github_agent.py` |
+| Web UI | `index.html`, `styles.css`, `script.js` |
+
+## API
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/health` | Status of MongoDB, Gemini and GitHub services |
+| `POST` | `/api/process-requirement` | Requirement → tasks, tech stack and goals |
+| `POST` | `/api/generate-code` | Tasks → generated project: stored for pushing, returned as a ZIP (used by the UI) |
+| `POST` | `/api/generate-project` | Tasks → generated project ZIP only |
+| `POST` | `/api/push-to-github` | Create a repo, push the latest generated project and open issues |
+| `POST` | `/api/update-github-token` | Set the GitHub token used for pushing |
+
+Request and response examples are in [docs/API.md](docs/API.md).
+
+## Deploying
+
+The included `Procfile` works on Render, Railway and Heroku-style platforms:
+
+```
+web: uvicorn app:app --app-dir backend --host 0.0.0.0 --port $PORT
+```
+
+Set `GEMINI_API_KEY`, `MONGODB_URI` and, optionally, `GITHUB_TOKEN` in the platform's environment settings.
+
+> ⚠️ **Single-user for now.** The GitHub token and the "latest generated project" are shared server-wide, so a public multi-user deployment can push one visitor's project with another visitor's token. Deploy it for yourself or your team until per-session isolation lands ([roadmap](#roadmap)).
+
+## Roadmap
+
+- [ ] Per-session isolation of GitHub tokens and generated projects
+- [ ] Update to a current Gemini model, and make the model configurable
+- [ ] Stream generation progress to the UI
+- [ ] Support more LLM providers (OpenAI-compatible APIs, Ollama for local models)
+- [ ] Tests and CI for the agents, with the LLM mocked
+- [ ] Preview generated files in the browser before pushing
+- [ ] Docker image and `docker compose` setup
+
+## Contributing
+
+Synapse is a friendly place for a first open-source contribution: Python, prompt engineering, frontend or docs. See [CONTRIBUTING.md](CONTRIBUTING.md) and pick an issue labelled [`good first issue`](https://github.com/skdas20/Synapse/labels/good%20first%20issue).
+
+If Synapse saves you time, **please ⭐ the repo**; it helps more people find it.
+
+## License
+
+[MIT](LICENSE) © Sumit Kumar Das
