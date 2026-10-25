@@ -53,6 +53,7 @@ Open <http://localhost:8000>. Interactive API docs are at <http://localhost:8000
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `GEMINI_API_KEY` | Yes | Task planning and code generation |
+| `GEMINI_MODEL` | No | Gemini model for planning and code generation (default `gemini-2.5-flash`) |
 | `MONGODB_URI` | Yes, for pushing to GitHub | Stores generated projects between steps |
 | `GITHUB_TOKEN` | No | Default token for the GitHub agent (`repo` scope). Users can also paste a token in the UI. |
 

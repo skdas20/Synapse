@@ -19,8 +19,13 @@ class DevBot:
         if not gemini_key:
             logger.error("GEMINI_API_KEY environment variable not set!")
             # Optionally raise an error or handle appropriately
-        # Use gemini-1.5-flash model and v1 API endpoint
-        self.endpoint = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+        # The model is configurable: Google retires old Flash models, and the
+        # key travels in a header so it never lands in a URL or a log line.
+        self.model = os.getenv('GEMINI_MODEL', 'gemini-2.5-flash')
+        self.endpoint = f"https://generativelanguage.googleapis.com/v1/models/{self.model}:generateContent"
+        self.headers = {"Content-Type": "application/json"}
+        if gemini_key:
+            self.headers["x-goog-api-key"] = gemini_key
         self.client = httpx.AsyncClient(timeout=120.0) # Increased timeout
 
     async def generate_project(self, tasks: List[str], project_type: str) -> Dict[str, Any]:
@@ -71,7 +76,7 @@ Include necessary configuration files (like requirements.txt or package.json) if
                 ]
             }
 
-            headers = {"Content-Type": "application/json"}
+            headers = self.headers
 
             logger.info("Sending request to Gemini API...")
             try:
