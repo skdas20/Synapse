@@ -261,7 +261,7 @@ async def generate_code(req: TasksRequest):
         )
 
 @app.post("/api/generate-project")
-async def generate_project(req: TasksRequest):
+async def generate_project_archive(req: TasksRequest):
     try:
         if not req.tasks:
             return JSONResponse(
@@ -406,39 +406,6 @@ async def update_github_token(req: GitHubTokenRequest):
                 "error": "Invalid GitHub token. Please check your token and try again."
             }
         )
-
-@app.post('/api/generate')
-async def generate_project(tasks: List[str], project_type: str):
-    try:
-        if not tasks or not project_type:
-            raise HTTPException(status_code=400, detail='Missing required fields')
-
-        # Use the initialized DevBot from services
-        if not services.get('dev_bot'):
-             raise HTTPException(status_code=503, detail="Code generation service (DevBot) is not available.")
-
-        result = await services['dev_bot'].generate_project(tasks, project_type)
-
-        if not result.get('success'):
-            raise HTTPException(status_code=500, detail=result.get('error', 'Unknown error during project generation'))
-
-        # Check if the ZIP file exists
-        if not os.path.exists(result['zip_file']):
-            raise HTTPException(status_code=500, detail='Failed to create ZIP file')
-
-        try:
-            return FileResponse(
-                path=result['zip_file'],
-                media_type='application/zip',
-                filename='generated_project.zip'
-            )
-        except Exception as e:
-            app.logger.error(f"Error sending file: {str(e)}")
-            raise HTTPException(status_code=500, detail='Failed to send generated files')
-
-    except Exception as e:
-        app.logger.error(f"Error in generate_project route: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
 
 # Serve the main frontend HTML page
 # Health check endpoint
