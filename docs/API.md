@@ -112,6 +112,27 @@ Generate complete codebase based on tasks and project type.
 }
 ```
 
+### Generate Project Archive
+
+**POST** `/api/generate-project`
+
+Generate a project archive from a list of tasks. The endpoint returns the
+generated ZIP file as an `application/zip` attachment. It uses the latest saved
+analysis to choose a project type, or `generic` when no analysis is available.
+
+**Request Body:**
+```json
+{
+  "tasks": [
+    "Set up React project structure",
+    "Create Express.js backend"
+  ]
+}
+```
+
+The request must include at least one task. An empty task list returns **400**;
+an unavailable code-generation service returns **503**.
+
 ### Push to GitHub
 
 **POST** `/api/push-to-github`
