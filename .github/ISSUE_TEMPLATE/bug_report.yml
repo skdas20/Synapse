@@ -1,0 +1,39 @@
+name: Bug report
+description: Something in Synapse doesn't work
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "**Never paste API keys, MongoDB URIs or GitHub tokens in an issue.**"
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: The requirement you entered, what you expected, and what you got.
+    validations:
+      required: true
+  - type: dropdown
+    id: step
+    attributes:
+      label: Which step failed?
+      options:
+        - Task planning
+        - Code generation / ZIP download
+        - Push to GitHub
+        - UI
+        - Setup / deployment
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where were you running it?
+      options:
+        - Live demo
+        - Locally
+        - My own deployment
+  - type: textarea
+    id: logs
+    attributes:
+      label: Server logs or browser console output
+      render: shell

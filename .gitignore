@@ -1,5 +1,13 @@
 venv/
+.venv/
+__pycache__/
+*.pyc
+
 # env files
 .env
 .env.*
 !.env.example
+
+# generated output
+backend/generated_project/
+backend/*.zip

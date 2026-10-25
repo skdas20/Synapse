@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: App starts and /health responds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Smoke test
+        working-directory: backend
+        env:
+          MONGODB_URI: mongodb://127.0.0.1:1/none
+        run: |
+          python - <<'PY'
+          from fastapi.testclient import TestClient
+          from app import app
+          with TestClient(app) as client:
+              r = client.get("/health")
+              assert r.status_code == 200, r.text
+              assert client.get("/").status_code == 200
+              for private in ("/.env", "/.env.example", "/backend/app.py"):
+                  assert client.get(private).status_code == 404, private
+              print(r.json())
+          PY
