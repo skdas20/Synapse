@@ -16,8 +16,13 @@ class TaskPlannerAgent:
         gemini_key = os.getenv('GEMINI_API_KEY')
         if not gemini_key:
             logger.error("GEMINI_API_KEY environment variable not set!")
-        # Use gemini-1.5-flash model and v1 API endpoint
-        self.endpoint = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+        # The model is configurable: Google retires old Flash models, and the
+        # key travels in a header so it never lands in a URL or a log line.
+        self.model = os.getenv('GEMINI_MODEL', 'gemini-2.5-flash')
+        self.endpoint = f"https://generativelanguage.googleapis.com/v1/models/{self.model}:generateContent"
+        self.headers = {"Content-Type": "application/json"}
+        if gemini_key:
+            self.headers["x-goog-api-key"] = gemini_key
         self.client = httpx.AsyncClient(timeout=60.0)
 
     async def _call_gemini(self, prompt: str, request_json: bool = False) -> Dict:
@@ -40,7 +45,7 @@ class TaskPlannerAgent:
         # if request_json:
         #     payload["generationConfig"]["responseMimeType"] = "application/json"
 
-        headers = {"Content-Type": "application/json"}
+        headers = self.headers
 
         logger.info(f"Sending request to Gemini API (Endpoint: {self.endpoint.split('?')[0]}...). Requesting JSON: {request_json}")
         # Avoid logging the full prompt if it's too long or sensitive
