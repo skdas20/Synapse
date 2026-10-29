@@ -1,119 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Synapse - AI Development Assistant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="script.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Initial Loading Screen -->
     <div class="initial-loading">
-        <div class="warp-stars" id="warpStars"></div>
-        <h1 class="loading-logo">Synapse</h1>
+      <div class="warp-stars" id="warpStars"></div>
+      <h1 class="loading-logo">Synapse</h1>
     </div>
 
     <div class="stars"></div>
-    
+
     <!-- Top Navigation -->
     <div class="top-nav">
-        <div class="synapse-text">Synapse</div>
-        <button class="nav-btn github-btn"><i class="fab fa-github"></i> GitHub</button>
-        <button class="nav-btn settings-btn"><i class="fas fa-cog"></i> Settings</button>
-        <button class="nav-btn about-btn"><i class="fas fa-info-circle"></i> About</button>
-    </div>
-    
-    <div class="container">
-        <div class="sidebar">
-            <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-chevron-left"></i></button>
-            <div class="history-pane">
-                <h3>History <button class="clear-history" id="clearHistory">Clear</button></h3>
-                <div class="history-list"></div>
-            </div>
-        </div>
-        
-        <main class="main-content">
-            <div class="logo-container">
-                <img src="/static/a.png" alt="Synapse Logo" class="synapse-logo-img">
-                <div class="water-effect"></div>
-            </div>
-            
-            <div class="input-section">
-                <textarea placeholder="Enter your project requirements..." class="requirement-input"></textarea>
-                <button class="submit-btn">Generate Plan</button>
-            </div>
+      <div class="synapse-text">Synapse</div>
 
-            <div class="output-section hidden">
-                <div class="development-goals">
-                    <div class="loading-indicator" id="loadingIndicator"></div>
-                </div>
-                <div class="action-buttons">
-                    <button class="download-md"><i class="fas fa-download"></i> Download Goals</button>
-                    <button class="generate-code"><i class="fas fa-code"></i> Generate Codebase</button>
-                    <button class="push-github hidden"><i class="fab fa-github"></i> Push to GitHub</button>
-                </div>
-            </div>
-        </main>
+      <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="nav-menu" id="navMenu">
+        <button class="nav-btn github-btn">
+          <i class="fab fa-github"></i> GitHub
+        </button>
+        <button class="nav-btn settings-btn">
+          <i class="fas fa-cog"></i> Settings
+        </button>
+        <button class="nav-btn about-btn">
+          <i class="fas fa-info-circle"></i> About
+        </button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="sidebar">
+        <button class="sidebar-toggle" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="history-pane">
+          <h3>
+            History
+            <button class="clear-history" id="clearHistory">Clear</button>
+          </h3>
+          <div class="history-list"></div>
+        </div>
+      </div>
+
+      <main class="main-content">
+        <div class="logo-container">
+          <img
+            src="/static/a.png"
+            alt="Synapse Logo"
+            class="synapse-logo-img"
+          />
+          <div class="water-effect"></div>
+        </div>
+
+        <div class="input-section">
+          <textarea
+            placeholder="Enter your project requirements..."
+            class="requirement-input"
+          ></textarea>
+          <button class="submit-btn">Generate Plan</button>
+        </div>
+
+        <div class="output-section hidden">
+          <div class="development-goals">
+            <div class="loading-indicator" id="loadingIndicator"></div>
+          </div>
+          <div class="action-buttons">
+            <button class="download-md">
+              <i class="fas fa-download"></i> Download Goals
+            </button>
+            <button class="generate-code">
+              <i class="fas fa-code"></i> Generate Codebase
+            </button>
+            <button class="push-github hidden">
+              <i class="fab fa-github"></i> Push to GitHub
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
 
     <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
-        <div class="modal-content">
-            <button class="close-modal">&times;</button>
-            <h2>Settings</h2>
-            <div class="settings-grid">
-                <div class="settings-item">
-                    <label for="themeSelect">Theme</label>
-                    <select id="themeSelect">
-                        <option value="dark" selected>Dark Space</option>
-                        <option value="light">Light Space</option>
-                        <option value="cyberpunk">Cyberpunk</option>
-                    </select>
-                </div>
-                <div class="settings-item">
-                    <label for="githubTokenInput">GitHub Access Token</label>
-                    <input type="password" id="githubTokenInput" placeholder="Enter your GitHub access token">
-                </div>
-                <div class="settings-item">
-                    <label for="autoSaveToggle">Auto-save History</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="autoSaveToggle" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="settings-item">
-                    <label for="animationsToggle">Enable Animations</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="animationsToggle" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="settings-item" style="grid-column: span 2;">
-                    <button id="saveSettings" class="save-settings-btn">Save Settings</button>
-                </div>
-            </div>
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2>Settings</h2>
+        <div class="settings-grid">
+          <div class="settings-item">
+            <label for="themeSelect">Theme</label>
+            <select id="themeSelect">
+              <option value="dark" selected>Dark Space</option>
+              <option value="light">Light Space</option>
+              <option value="cyberpunk">Cyberpunk</option>
+            </select>
+          </div>
+          <div class="settings-item">
+            <label for="githubTokenInput">GitHub Access Token</label>
+            <input
+              type="password"
+              id="githubTokenInput"
+              placeholder="Enter your GitHub access token"
+            />
+          </div>
+          <div class="settings-item">
+            <label for="autoSaveToggle">Auto-save History</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="autoSaveToggle" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="settings-item">
+            <label for="animationsToggle">Enable Animations</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="animationsToggle" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="settings-item" style="grid-column: span 2">
+            <button id="saveSettings" class="save-settings-btn">
+              Save Settings
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- About Modal -->
     <div class="modal" id="aboutModal">
-        <div class="modal-content">
-            <button class="close-modal">&times;</button>
-            <div class="about-content">
-                <h2>About Synapse</h2>
-                <p>Synapse is an ambitious project created by <span class="highlight">Sumit Kumar Das</span>, a sophomore engineering student with a vision to revolutionize no-code development.</p>
-                <p>This AI-powered development assistant helps break down project requirements into actionable tasks, generates code, and even integrates with GitHub for seamless project management.</p>
-                <p>Sumit's dedication to making development more accessible has resulted in this amazing application that bridges the gap between ideas and implementation.</p>
-                <p>The project leverages cutting-edge AI technology to understand requirements and generate appropriate code structures, making software development faster and more efficient for everyone.</p>
-            </div>
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <div class="about-content">
+          <h2>About Synapse</h2>
+          <p>
+            Synapse is an ambitious project created by
+            <span class="highlight">Sumit Kumar Das</span>, a sophomore
+            engineering student with a vision to revolutionize no-code
+            development.
+          </p>
+          <p>
+            This AI-powered development assistant helps break down project
+            requirements into actionable tasks, generates code, and even
+            integrates with GitHub for seamless project management.
+          </p>
+          <p>
+            Sumit's dedication to making development more accessible has
+            resulted in this amazing application that bridges the gap between
+            ideas and implementation.
+          </p>
+          <p>
+            The project leverages cutting-edge AI technology to understand
+            requirements and generate appropriate code structures, making
+            software development faster and more efficient for everyone.
+          </p>
         </div>
+      </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Synapse. Created by Sumit Kumar Das</p>
+      <p>&copy; 2025 Synapse. Created by Sumit Kumar Das</p>
     </footer>
-</body>
+  </body>
 </html>
